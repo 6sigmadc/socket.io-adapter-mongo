@@ -136,6 +136,7 @@ class MongoAdapter extends Adapter {
    disconnect(callback) {
       this.cursor.close((err) => {
          if (err) return callback(err)
+         clearInterval(this.heartbeatTimer)
          this.model.db.close((connectionErr) => {
             if (typeof callback === 'function') {
                callback(connectionErr)
